@@ -21,6 +21,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    //Petición Get con ruta base /products
     @GetMapping
     public ResponseEntity<List<Product>> getAllProductsByCategory(@Param("category") Integer category) {
         //Obtener todos los productos desde la base de datos
