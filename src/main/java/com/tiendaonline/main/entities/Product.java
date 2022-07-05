@@ -19,7 +19,7 @@ public class Product {
     private float price;
     private int discount;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch =FetchType.EAGER)
     @JoinColumn(name="category", nullable=true, referencedColumnName = "id")
     private Category category;
 }

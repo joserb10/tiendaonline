@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     //Query para obtener productos previniendo sql inyection con parametro indexado
-    @Query(value = "select * from product where category = ?1", nativeQuery = true)
+    @Query(value = "select id,name,url_image,price,discount,category from product where category = ?1", nativeQuery = true)
     List<Product> findByCategory(@Param("category") Integer category);
 }
