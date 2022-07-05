@@ -3,9 +3,9 @@ package com.tiendaonline.main.controllers;
 import com.tiendaonline.main.entities.Category;
 import com.tiendaonline.main.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +19,8 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    //Allow CrossOrigin a todos los clientes
+    @CrossOrigin(origins = "*")
     //Petición Get con ruta base /categories
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories() {
