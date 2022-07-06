@@ -3,6 +3,8 @@ package com.tiendaonline.main.services;
 import com.tiendaonline.main.entities.Product;
 import com.tiendaonline.main.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +16,12 @@ public class ProductService {
     ProductRepository productRepository;
 
     //Obtener todas los productos
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
     //Obtener todos los productos por categoria
-    public List<Product> findAllByCategory(Integer category) {
-        return productRepository.findByCategory(category);
+    public Page<Product> findAllByCategory(Integer category, Pageable pageable) {
+        return productRepository.findByCategory(category, pageable);
     }
 }
