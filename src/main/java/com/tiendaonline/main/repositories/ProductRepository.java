@@ -21,5 +21,8 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
             countQuery = "select count(*) from product where name like '%?1%'", nativeQuery = true)
     Page<Product> findByText(@Param("text") String text, Pageable pageable);
 
-
+    //Query para obtener productos por rango de precios previniendo sql inyection con parametro indexado y con paginacion
+    @Query(value = "select id,name,url_image,price,discount,category from product where price between ?1 and ?2",
+            countQuery = "select count(*) from product where price between ?1 and ?2", nativeQuery = true)
+    Page<Product> findByPriceRange(@Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice, Pageable pageable);
 }

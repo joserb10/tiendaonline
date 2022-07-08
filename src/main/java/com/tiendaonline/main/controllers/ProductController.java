@@ -32,20 +32,25 @@ public class ProductController {
     //Petición Get con ruta base /products con paginacion de 8 elementos por pagina
     @GetMapping
     public ResponseEntity<?> getAllProductsByFilter(@Nullable @RequestParam("category") Integer category,
-                                                      @Nullable @RequestParam("text") String text,
+                                                    @Nullable @RequestParam("text") String text,
+                                                    @Nullable @RequestParam("minPrice") Integer minPrice,
+                                                    @Nullable @RequestParam("maxPrice") Integer maxPrice,
                                                                   @RequestParam(defaultValue = "0") Integer pageNo,
                                                                   @RequestParam(defaultValue = "8") Integer pageSize,
                                                                   @RequestParam(defaultValue = "id") String sortBy) {
         List<Product> products = new ArrayList<>();
         Page<Product> pagedResult;
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        //Validar que se envíe el parametro category o text
+        //Validar que se envíe el parametro category o text o min price
         if (category != null) {
             //Obtener todos los productos por categoria desde la base de datos
             pagedResult = productService.findAllByCategory(category,paging);
         } else if (text != null){
             //Obtener todos los productos filtrado por texto
             pagedResult =  productService.findAllByText(text,paging);
+        } else if (minPrice != null) {
+            //Obtener todos los productos filtrado por rango de precios
+            pagedResult =  productService.findAllByPriceRange(minPrice,maxPrice,paging);
         } else {
             //Obtener todos los productos desde la base de datos
             pagedResult =  productService.findAll(paging);

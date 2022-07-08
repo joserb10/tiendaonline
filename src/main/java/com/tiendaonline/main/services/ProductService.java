@@ -29,4 +29,9 @@ public class ProductService {
         public Page<Product> findAllByText(String text, Pageable pageable) {
         return productRepository.findByText(text, pageable);
     }
+
+    //Obtener todos los productos por rango de precios
+    public Page<Product> findAllByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable) {
+        return productRepository.findByPriceRange(minPrice,maxPrice, pageable);
+    }
 }
