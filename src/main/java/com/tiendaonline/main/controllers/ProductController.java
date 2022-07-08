@@ -31,17 +31,21 @@ public class ProductController {
     @CrossOrigin(origins = "*")
     //Petición Get con ruta base /products con paginacion de 8 elementos por pagina
     @GetMapping
-    public ResponseEntity<?> getAllProductsByCategory(@Nullable @RequestParam("category") Integer category,
+    public ResponseEntity<?> getAllProductsByFilter(@Nullable @RequestParam("category") Integer category,
+                                                      @Nullable @RequestParam("text") String text,
                                                                   @RequestParam(defaultValue = "0") Integer pageNo,
                                                                   @RequestParam(defaultValue = "8") Integer pageSize,
                                                                   @RequestParam(defaultValue = "id") String sortBy) {
         List<Product> products = new ArrayList<>();
         Page<Product> pagedResult;
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        //Validar que se envíe el parametro category
+        //Validar que se envíe el parametro category o text
         if (category != null) {
             //Obtener todos los productos por categoria desde la base de datos
             pagedResult = productService.findAllByCategory(category,paging);
+        } else if (text != null){
+            //Obtener todos los productos filtrado por texto
+            pagedResult =  productService.findAllByText(text,paging);
         } else {
             //Obtener todos los productos desde la base de datos
             pagedResult =  productService.findAll(paging);
@@ -62,6 +66,7 @@ public class ProductController {
         //Retornar un ResponseEnitity con los datos de response y el HttpStatus 200 al cliente
         return new ResponseEntity<>(response,null, HttpStatus.OK);
     }
+
 
 
 }

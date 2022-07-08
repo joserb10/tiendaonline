@@ -24,4 +24,9 @@ public class ProductService {
     public Page<Product> findAllByCategory(Integer category, Pageable pageable) {
         return productRepository.findByCategory(category, pageable);
     }
+
+    //Obtener todos los productos por texto busqueda
+        public Page<Product> findAllByText(String text, Pageable pageable) {
+        return productRepository.findByText(text, pageable);
+    }
 }
