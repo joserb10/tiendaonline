@@ -72,6 +72,4 @@ public class ProductController {
         return new ResponseEntity<>(response,null, HttpStatus.OK);
     }
 
-
-
 }
