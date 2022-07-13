@@ -19,15 +19,12 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    //Allow CrossOrigin a todos los clientes
+    //Petición Get con ruta base /categories y Allow CrossOrigin
     @CrossOrigin(origins = "*")
-    //Petición Get con ruta base /categories
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories() {
-        //Obtener todos las categorias desde la base de datos
         List<Category> categories = categoryService.findAll();
 
-        //Retornar un ResponseEnitity con las categorias y el HttpStatus 200 al cliente
         return new ResponseEntity<List<Category>>(categories,null, HttpStatus.OK);
     }
 }
